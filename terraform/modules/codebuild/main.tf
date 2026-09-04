@@ -124,7 +124,7 @@ resource "aws_codebuild_project" "this" {
             - aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
         build:
           commands:
-            - docker build -t "$ECR_REPOSITORY_URL:$IMAGE_TAG" repo
+            - docker build -t "$ECR_REPOSITORY_URL:$IMAGE_TAG" -f repo/deployment/Dockerfile repo
         post_build:
           commands:
             - docker push "$ECR_REPOSITORY_URL:$IMAGE_TAG"
