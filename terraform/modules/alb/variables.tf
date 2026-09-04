@@ -32,5 +32,5 @@ variable "container_port" {
 variable "health_check_path" {
   description = "Path used by the ALB health check."
   type        = string
-  default     = "/actuator/health"
+  default     = "/actuator/health/liveness"
 }
