@@ -89,6 +89,12 @@ variable "max_capacity" {
   default     = 2
 }
 
+variable "health_check_grace_period_seconds" {
+  description = "Grace period before the load balancer health check can mark tasks unhealthy (allows slow app startup)."
+  type        = number
+  default     = 120
+}
+
 variable "cpu_target_utilization" {
   description = "Target average CPU utilization (percent) for auto scaling."
   type        = number
