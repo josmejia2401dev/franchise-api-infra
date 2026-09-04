@@ -1,0 +1,19 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Variable files with real values (keep only *.example)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Lock files are optional to commit; keeping them is fine, but ignore CLI config
+.terraformrc
+terraform.rc
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

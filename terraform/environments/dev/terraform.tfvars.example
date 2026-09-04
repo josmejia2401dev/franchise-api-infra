@@ -1,0 +1,18 @@
+aws_region    = "us-east-1"
+project       = "franchise-api"
+environment   = "dev"
+desired_count = 1
+min_capacity  = 1
+max_capacity  = 2
+
+# Full image URI in ECR (replace <account-id> and use your pushed tag).
+image_uri = "<account-id>.dkr.ecr.us-east-1.amazonaws.com/franchise-api:latest"
+
+# Non-secret URL template (host, database, options). Credentials are placeholders.
+mongodb_uri_template = "mongodb+srv://{username}:{password}@cluster0.w5f4gxm.mongodb.net/franchise?retryWrites=true&w=majority&appName=Cluster0"
+
+# Sensitive: do NOT commit real values. Prefer environment variables:
+#   $env:TF_VAR_mongodb_username = "your-user"
+#   $env:TF_VAR_mongodb_password = "your-pass"
+mongodb_username = "<user>"
+mongodb_password = "<password>"
