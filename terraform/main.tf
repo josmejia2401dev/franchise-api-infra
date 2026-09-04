@@ -4,21 +4,21 @@ locals {
 }
 
 module "network" {
-  source             = "../../modules/network"
+  source             = "./modules/network"
   project            = var.project
   environment        = var.environment
   availability_zones = var.availability_zones
 }
 
 module "ecr" {
-  source          = "../../modules/ecr"
+  source          = "./modules/ecr"
   project         = var.project
   environment     = var.environment
   repository_name = local.ecr_repository_name
 }
 
 module "codebuild" {
-  source                = "../../modules/codebuild"
+  source                = "./modules/codebuild"
   project               = var.project
   environment           = var.environment
   aws_region            = var.aws_region
@@ -30,14 +30,14 @@ module "codebuild" {
 }
 
 module "security" {
-  source      = "../../modules/security"
+  source      = "./modules/security"
   project     = var.project
   environment = var.environment
   vpc_id      = module.network.vpc_id
 }
 
 module "config" {
-  source                  = "../../modules/config"
+  source                  = "./modules/config"
   project                 = var.project
   environment             = var.environment
   credentials_secret_name = local.credentials_secret
@@ -46,14 +46,14 @@ module "config" {
 }
 
 module "iam" {
-  source                 = "../../modules/iam"
+  source                 = "./modules/iam"
   project                = var.project
   environment            = var.environment
   credentials_secret_arn = module.config.credentials_secret_arn
 }
 
 module "alb" {
-  source                = "../../modules/alb"
+  source                = "./modules/alb"
   project               = var.project
   environment           = var.environment
   vpc_id                = module.network.vpc_id
@@ -62,7 +62,7 @@ module "alb" {
 }
 
 module "ecs" {
-  source                 = "../../modules/ecs"
+  source                 = "./modules/ecs"
   project                = var.project
   environment            = var.environment
   aws_region             = var.aws_region

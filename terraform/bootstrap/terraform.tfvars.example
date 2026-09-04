@@ -1,4 +1,0 @@
-aws_region        = "us-east-1"
-project           = "franchise-api"
-state_bucket_name = "franchise-api-tfstate-<your-unique-suffix>"
-lock_table_name   = "franchise-api-tf-lock"
