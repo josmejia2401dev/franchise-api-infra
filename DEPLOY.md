@@ -16,11 +16,25 @@ Todos los comandos de Terraform se ejecutan desde `terraform/`.
 Antes de cualquier `terraform apply`, exportar:
 
 ```powershell
-$env:TF_VAR_mongodb_username  = "josmejia2401dev_db_user"
+$env:TF_VAR_mongodb_username  = "<usuario-mongo>"
 $env:TF_VAR_mongodb_password  = "<password-mongo>"
 $env:TF_VAR_dockerhub_username = "<usuario-dockerhub>"
 $env:TF_VAR_dockerhub_token    = "<token-dockerhub>"
 ```
+
+## Paso 0 — Solo en re-despliegues: liberar el secreto de Mongo
+
+Si ya se hizo un `destroy` antes, Secrets Manager deja el secreto "scheduled for
+deletion" (retencion 7-30 dias) y el `apply` falla con:
+`You can't create this secret because a secret with this name is already scheduled for deletion`.
+
+Borrarlo a la fuerza antes del apply:
+
+```powershell
+aws secretsmanager delete-secret --secret-id franchise-api/dev/mongodb-credentials --force-delete-without-recovery --region us-east-1
+```
+
+Esperar ~20 segundos. (En un primer despliegue limpio este paso no aplica.)
 
 ## Paso 1 — Lanzar la infraestructura (Terraform)
 
@@ -29,6 +43,7 @@ Secrets Manager y SSM. El servicio ECS queda creado pero sin imagen todavía.
 
 ```powershell
 terraform init
+terraform plan
 terraform apply
 ```
 
