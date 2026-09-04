@@ -51,3 +51,14 @@ variable "build_image" {
   type        = string
   default     = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
 }
+
+variable "dockerhub_username" {
+  description = "Docker Hub username used to authenticate pulls and avoid rate limits."
+  type        = string
+}
+
+variable "dockerhub_token" {
+  description = "Docker Hub access token."
+  type        = string
+  sensitive   = true
+}

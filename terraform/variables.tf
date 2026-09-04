@@ -75,3 +75,14 @@ variable "max_capacity" {
   type        = number
   default     = 2
 }
+
+variable "dockerhub_username" {
+  description = "Docker Hub username used by CodeBuild to authenticate and avoid pull rate limits."
+  type        = string
+}
+
+variable "dockerhub_token" {
+  description = "Docker Hub access token used by CodeBuild."
+  type        = string
+  sensitive   = true
+}

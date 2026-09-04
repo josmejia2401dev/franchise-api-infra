@@ -111,6 +111,14 @@ resource "aws_codebuild_project" "this" {
       name  = "GITHUB_BRANCH"
       value = var.github_branch
     }
+    environment_variable {
+      name  = "DOCKERHUB_USERNAME"
+      value = var.dockerhub_username
+    }
+    environment_variable {
+      name  = "DOCKERHUB_TOKEN"
+      value = var.dockerhub_token
+    }
   }
 
   source {
@@ -121,6 +129,7 @@ resource "aws_codebuild_project" "this" {
         pre_build:
           commands:
             - git clone --depth 1 --branch "$GITHUB_BRANCH" "$GITHUB_REPOSITORY_URL" repo
+            - echo "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
             - aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
         build:
           commands:

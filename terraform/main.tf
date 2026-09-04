@@ -27,6 +27,8 @@ module "codebuild" {
   ecr_repository_url    = module.ecr.repository_url
   ecr_repository_arn    = module.ecr.repository_arn
   image_tag             = var.image_tag
+  dockerhub_username    = var.dockerhub_username
+  dockerhub_token       = var.dockerhub_token
 }
 
 module "security" {
